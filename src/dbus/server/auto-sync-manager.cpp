@@ -21,7 +21,6 @@
 #include "session.h"
 #include "server.h"
 #include "dbus-callbacks.h"
-#include "presence-status.h"
 
 #include <glib.h>
 #include <glib/gi18n.h>

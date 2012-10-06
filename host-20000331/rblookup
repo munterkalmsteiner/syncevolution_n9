@@ -1,0 +1,199 @@
+#!/bin/sh -
+#
+#	@(#)rblookup            e07@nikhef.nl (Eric Wassenaar) 990127
+#
+# Author:	E.Wassenaar, Nikhef-H
+# Version:	11-NOV-1997
+# Revision:	02-NOV-1998, Select MAPS (default) or alternatively ORBS
+# Revision:	07-NOV-1998, Anticipate hosts with multiple addresses
+# Revision:	27-JAN-1999, ORBS has moved to a new site
+#
+# Lookup a dotted quad IP address in the Realtime Blackhole List
+# of the Mail Abuse Prevention System. See: http://maps.vix.com/rbl
+#
+#	Syntax:
+#		rblookup hostname
+#		rblookup -i dottedquad
+#
+#	Returns:
+#		zero if the given host was found on the blacklist.
+#		nonzero if not, or if undetermined.
+#
+# The RBL is an on-line, dynamically updated database of spam hosts,
+# maintained via the DNS. The search key is the reversed dotted quad
+# IP address of the given host, within the zone "rbl.maps.vix.com".
+# A query should be done for an A resource record. If it exists, the
+# given host is blacklisted as a notorious spam host. The value of the
+# retrieved A record is irrelevant and can be ignored. Additional info
+# may be found via an extra query for a TXT resource record.
+#
+# The RBL data in the DNS is replicated by several nameservers, using
+# a refresh time of 10 minutes. The TTL for local caching is 5 minutes.
+# The RBL nameservers do not allow zone transfers from arbitrary hosts,
+# thereby preventing the setup of a stealth server, unless you sign a
+# non-proliferation agreement (and you are running BIND version 8).
+#
+# This script is just an example of a quick and dirty wrapper for the
+# ``host'' utility. The technique can relatively easy be integrated 
+# into MTA programs like sendmail.
+
+exec=echo
+exec=
+
+# ----------------------------------------------------------------------
+# Setup environment.
+# ----------------------------------------------------------------------
+
+# This is where the ``host'' executable lives.
+BINDIR=/usr/local/bin
+
+PATH=${BINDIR}:/bin:/usr/bin:/usr/ucb ; export PATH
+
+cmd=`basename $0`
+
+options="[-maps] [-orbs] [-i] [-v]"
+usage="Usage: $cmd $options hostname"
+
+# ----------------------------------------------------------------------
+# Configuration.
+# ----------------------------------------------------------------------
+
+MAPSROOT="rbl.maps.vix.com"
+ORBSROOT="relays.orbs.org"
+
+# ----------------------------------------------------------------------
+# Exit codes from <sysexits.h>
+# ----------------------------------------------------------------------
+
+EX_OK=0
+EX_USAGE=64
+EX_UNAVAILABLE=69
+
+# ----------------------------------------------------------------------
+# Auxiliary routines.
+# ----------------------------------------------------------------------
+
+fatal ()
+{
+	message="$*"
+	echo "$message" 1>&2
+	exit $EX_USAGE
+}
+
+# ----------------------------------------------------------------------
+# Process options.
+# ----------------------------------------------------------------------
+
+verbose=
+reverse=
+orbs=
+
+skip=
+for i
+do
+	[ $skip ] && skip= && continue
+
+	case "$i" in
+	-orbs)	orbs=true ;;
+	-maps)	orbs= ;;
+	-i)	reverse=true ;;
+	-v)	verbose="-v" ;;
+	-d)	exec=echo ;;
+	-*)	fatal "$cmd: Unknown option $i" ;;
+	*)	break ;;
+	esac
+	shift
+done
+
+# ----------------------------------------------------------------------
+# Process arguments.
+# ----------------------------------------------------------------------
+
+name="$1"
+
+[ "X$name" = "X" ] && fatal "$usage"
+
+# Remove trailing dots.
+name=`echo $name | sed 's/\.*$//'`
+
+if [ $reverse ]
+then
+	# Assume this is already a dotted quad.
+	addresslist="$name"
+else
+	# Try to resolve domain name into dotted quad.
+	addresslist=`host "$name" | awk '$2 == "A" {print $3}'`
+fi
+
+# ----------------------------------------------------------------------
+# Auxiliary routines.
+# ----------------------------------------------------------------------
+
+invalid ()
+{
+	fatal "Invalid dotted quad $address"
+}
+
+numeric ()
+{
+	[ "X$1" = "X" ] && invalid
+
+	# Must be numeric.
+	value=`expr $1 + 0` ; [ "X$value" = "X" ] && invalid
+
+	# Must be in range.
+	[ "$value" -lt 0 -o "$value" -gt 255 ] && invalid
+
+	return $EX_OK
+}
+
+invert ()
+{
+	labels=`echo "$address" | sed -e 's/\./ /g'`
+	set - $labels
+	case "$#" in
+	1)
+		numeric $1
+		reversed="0.0.0.$1"
+		;;
+	2)
+		numeric $1 && numeric $2
+		reversed="0.0.$2.$1"
+		;;
+	3)
+		numeric $1 && numeric $2 && numeric $3
+		reversed="0.$3.$2.$1"
+		;;
+	4)
+		numeric $1 && numeric $2 && numeric $3 && numeric $4
+		reversed="$4.$3.$2.$1"
+		;;
+	*)
+		invalid
+		;;
+	esac
+}
+
+# ----------------------------------------------------------------------
+# Main procedure.
+# ----------------------------------------------------------------------
+
+exitstat=$EX_UNAVAILABLE
+
+for address in $addresslist
+do
+	# Swap dotted quad labels.
+	invert
+
+	# Construct proper name in map.
+	[ $orbs ] && map="$ORBSROOT" || map="$MAPSROOT"
+	name="$reversed.$map"
+
+	echo "--- $name ---"
+	$exec host $verbose -t A $name
+	found=$?
+	[ $found -eq $EX_OK ] && exitstat=$EX_OK
+	[ $found -eq $EX_OK ] && $exec host $verbose -t TXT $name
+done
+
+exit $exitstat

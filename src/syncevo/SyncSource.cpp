@@ -1043,10 +1043,8 @@ void SyncSourceRevisions::restoreData(const SyncSource::Operations::ConstBackupI
     }
 }
 
-bool SyncSourceRevisions::detectChanges(ConfigNode &trackingNode, ChangeMode mode)
+void SyncSourceRevisions::detectChanges(ConfigNode &trackingNode, ChangeMode mode)
 {
-    bool forceSlowSync = false;
-
     // erase content which might have been set in a previous call
     reset();
     if (!m_firstCycle) {
@@ -1071,7 +1069,7 @@ bool SyncSourceRevisions::detectChanges(ConfigNode &trackingNode, ChangeMode mod
             revisions[uid] = revision;
         }
         setAllItems(revisions);
-        return false;
+        return;
     }
 
     if (!m_revisionsSet &&
@@ -1103,26 +1101,12 @@ bool SyncSourceRevisions::detectChanges(ConfigNode &trackingNode, ChangeMode mod
     // traditional, slow fallback follows...
     initRevisions();
 
-    // Check whether we have valid revision information.  If not, then
-    // we need to do a slow sync. The assumption here is 
-    if (!m_revisions.empty() &&
-        m_revisions.begin()->second.empty()) {
-        forceSlowSync = true;
-        mode = CHANGES_SLOW;
-    }
-
     // Delay setProperty calls until after checking all uids.
     // Necessary for MapSyncSource, which shares the revision among
     // several uids. Another advantage is that we can do the "find
     // deleted items" check with less entries (new items not added
     // yet).
     StringMap revUpdates;
-
-    if (mode == CHANGES_SLOW) {
-        // Make tracking node identical to current set of items
-        // by re-adding them below.
-        trackingNode.clear();
-    }
 
     BOOST_FOREACH(const StringPair &mapping, m_revisions) {
         const string &uid = mapping.first;
@@ -1131,44 +1115,36 @@ bool SyncSourceRevisions::detectChanges(ConfigNode &trackingNode, ChangeMode mod
         // always remember the item, need full list
         addItem(uid);
 
-        // avoid unnecessary work in CHANGES_SLOW mode
-        if (mode == CHANGES_SLOW) {
-            trackingNode.setProperty(uid, revision);
+        // TODO: avoid unnecessary work in CHANGES_SLOW mode
+        // Not done yet to avoid introducing bugs.
+        string serverRevision(trackingNode.readProperty(uid));
+        if (!serverRevision.size()) {
+            addItem(uid, NEW);
+            revUpdates[uid] = revision;
         } else {
-            // detect changes
-            string serverRevision(trackingNode.readProperty(uid));
-            if (!serverRevision.size()) {
-                addItem(uid, NEW);
+            if (revision != serverRevision) {
+                addItem(uid, UPDATED);
                 revUpdates[uid] = revision;
-            } else {
-                if (revision != serverRevision) {
-                    addItem(uid, UPDATED);
-                    revUpdates[uid] = revision;
-                }
             }
         }
     }
 
-    if (mode != CHANGES_SLOW) {
-        // clear information about all items that we recognized as deleted
-        ConfigProps props;
-        trackingNode.readProperties(props);
+    // clear information about all items that we recognized as deleted
+    ConfigProps props;
+    trackingNode.readProperties(props);
 
-        BOOST_FOREACH(const StringPair &mapping, props) {
-            const string &uid(mapping.first);
-            if (getAllItems().find(uid) == getAllItems().end()) {
-                addItem(uid, DELETED);
-                trackingNode.removeProperty(uid);
-            }
-        }
-
-        // now update tracking node
-        BOOST_FOREACH(const StringPair &update, revUpdates) {
-            trackingNode.setProperty(update.first, update.second);
+    BOOST_FOREACH(const StringPair &mapping, props) {
+        const string &uid(mapping.first);
+        if (getAllItems().find(uid) == getAllItems().end()) {
+            addItem(uid, DELETED);
+            trackingNode.removeProperty(uid);
         }
     }
 
-    return forceSlowSync;
+    // now update tracking node
+    BOOST_FOREACH(const StringPair &update, revUpdates) {
+        trackingNode.setProperty(update.first, update.second);
+    }
 }
 
 void SyncSourceRevisions::updateRevision(ConfigNode &trackingNode,

@@ -1,0 +1,347 @@
+
+	@(#)README_NT           e07@nikhef.nl (Eric Wassenaar) 970908
+
+The initial steps for the port of the host utility to NT came from
+Paul E. Jones <paulej@acm.org>. Below you will find his notes, and
+the installation files "host.mak", "host.dsp", and "host.dsw".
+
+-- Eric Wassenaar
+
+===============================================================================
+=====>>>>>>>>>>>>>>>>>>>>>>>>> readme.nt <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<=====
+===============================================================================
+
+Notes about the Window NT Port  (97/09/08)
+==========================================
+
+
+Executing "host"
+
+    "Host" normally attempts to use the nameserver defined by the operating
+    system to resolve names.  If this is unacceptable or not desired, you
+    can place a file in %windir% (usually "c:\winnt") called "resolv.conf",
+    which specifies what nameserver to use.
+
+    The resolv.conf file should look like this:
+
+    domain foo.com
+    nameserver 192.11.12.13
+    nameserver 204.2.3.4
+
+    As you can see, you can specify your domain name and multiple name 
+    servers.
+
+    If you give the executable the same name as a record type (like
+    MX or NS), the command will default to searching for only
+    DNS records of that type.
+
+Building the source
+
+    You have two options to build the source:
+        1) Use Microsoft Visual C++ "Developer Studio" to compile from
+           within VC++'s IDE
+        2) Use the host.mak makefile and compile at the command line
+
+    This project was originally built with Microsoft Visual C++ 5.0.
+
+    In order to build the Windows NT port of the "host" command,
+    you will need "BIND 4.9.5" for WinNT.  It is available at
+    at ftp://ftp.isc.org/isc/bind/src/4.9.5/contrib/ntbind495p1.zip.
+
+    Extract the "bind" sources into a directory.  Place the "host"
+    sources in a directory called "bind"\contrib\host.
+
+    The directory structure should look similar to this:
+        C:\
+         |
+         +---Source
+              |
+              +----- Bind
+                       |
+                       +----- Contrib
+                       |         |
+                       |         +----- Host
+                       |
+                       +----- Res
+
+    In the bind sources, you should build the "WinRel" build
+    of the "res" project.
+
+The Software
+
+    This software was originally copyright (C) Regents of the
+    University of California.  This particular source code
+    was rewritten by Eric Wassenaar, Nikhef-H, <e07@nikhef.nl>.
+
+    Since I had absolutely no part in the development of the software,
+    I will take no credit.  Just the same, if you have any questions
+    please feel free to contact me.
+    
+                                         Paul E. Jones
+                                         <paulej@acm.org>
+
+===============================================================================
+=====>>>>>>>>>>>>>>>>>>>>>>>>> host.mak <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<=====
+===============================================================================
+
+#
+# host.mak
+#
+# Makefile to build WinNT version of the 'host' command for Visual C++.
+# This package requires "bind 4.9.5" for WinNT.  It is available
+# at ftp://ftp.isc.org/isc/bind/src/4.9.5/contrib/ntbind495p1.zip.
+#
+# To build the 'host' command:
+#       1. Extract the bind sources into a directory
+#       2. Place the 'host' sources into $(BINDDIR)/contrib/host
+#       3. Open the project file in the 'res' subdirectory of
+#          the bind sources and build a "release" version
+#       4. In the 'host' directory, type: nmake /f host.mak
+#       5. The 'host' command will be generated in a subdirectory
+#          called 'Release'
+#          
+
+#--------------------------------------------------------------------
+# Define NULL to help with directory creation on win95
+#--------------------------------------------------------------------
+!IF "$(OS)" == "Windows_NT"
+NULL=
+!ELSE 
+NULL=nul
+!ENDIF 
+
+#--------------------------------------------------------------------
+# Directory locations
+#--------------------------------------------------------------------
+OUTDIR=.\Release
+BINDDIR=..\..
+BINDSRC=$(BINDDIR)\compat\lib
+
+#--------------------------------------------------------------------
+# Definitions
+#--------------------------------------------------------------------
+DEFS = /D NDEBUG /D WIN32 /D _CONSOLE /D WINNT /D i386 /D HOST_RES_SEND
+
+INCL = /I $(BINDDIR)\include /I $(BINDDIR)\compat\include
+
+CFLAGS = /nologo /MT /W3 /G4 /O1 /Fo"$(OUTDIR)\\" /Fd"$(OUTDIR)\\" /FD /c 
+
+CC   = cl.exe
+
+PROG = $(OUTDIR)\host.exe
+
+OBJS = $(OUTDIR)\gettimeofday.obj\
+       $(OUTDIR)\host.obj\
+       $(OUTDIR)\log.obj\
+       $(OUTDIR)\ntmisc.obj\
+       $(OUTDIR)\send.obj\
+       $(OUTDIR)\vers.obj\
+       $(OUTDIR)\writev.obj
+
+LINK = link.exe
+
+LFLAGS = /nologo /subsystem:console /incremental:no\
+         /machine:I386 /out:$(PROG)
+
+LIBS = wsock32.lib advapi32.lib $(BINDDIR)\res\WinRel\resolv.lib
+
+#--------------------------------------------------------------------
+# Build rules
+#--------------------------------------------------------------------
+
+all : $(PROG)
+    @echo Build complete!
+
+$(OUTDIR) :
+    if not exist $(OUTDIR)/$(NULL) mkdir $(OUTDIR)
+
+clean :
+    @echo Cleaning build directories...
+    -@erase $(OBJS)
+    -@erase $(OUTDIR)\*.idb
+    @echo All clean!
+
+$(PROG) : $(OBJS)
+    $(LINK) $(LIBS) $(OBJS) $(LFLAGS)
+
+$(OUTDIR)\gettimeofday.obj: $(OUTDIR)
+    $(CC) $(CFLAGS) $(DEFS) $(INCL) $(BINDSRC)\gettimeofday.c
+
+$(OUTDIR)\host.obj: $(OUTDIR)
+    $(CC) $(CFLAGS) $(DEFS) $(INCL) host.c
+
+$(OUTDIR)\log.obj: $(OUTDIR)
+    $(CC) $(CFLAGS) $(DEFS) $(INCL) $(BINDSRC)\log.c
+
+$(OUTDIR)\ntmisc.obj: $(OUTDIR)
+    $(CC) $(CFLAGS) $(DEFS) $(INCL) $(BINDSRC)\ntmisc.c
+
+$(OUTDIR)\send.obj: $(OUTDIR)
+    $(CC) $(CFLAGS) $(DEFS) $(INCL) send.c
+
+$(OUTDIR)\vers.obj: $(OUTDIR)
+    $(CC) $(CFLAGS) $(DEFS) $(INCL) vers.c
+
+$(OUTDIR)\writev.obj: $(OUTDIR)
+    $(CC) $(CFLAGS) $(DEFS) $(INCL) $(BINDSRC)\writev.c
+
+===============================================================================
+=====>>>>>>>>>>>>>>>>>>>>>>>>> host.dsp <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<=====
+===============================================================================
+
+# Microsoft Developer Studio Project File - Name="host" - Package Owner=<4>
+# Microsoft Developer Studio Generated Build File, Format Version 5.00
+# ** DO NOT EDIT **
+
+# TARGTYPE "Win32 (x86) Console Application" 0x0103
+
+CFG=host - Win32 Debug
+!MESSAGE This is not a valid makefile. To build this project using NMAKE,
+!MESSAGE use the Export Makefile command and run
+!MESSAGE 
+!MESSAGE NMAKE /f "host.mak".
+!MESSAGE 
+!MESSAGE You can specify a configuration when running NMAKE
+!MESSAGE by defining the macro CFG on the command line. For example:
+!MESSAGE 
+!MESSAGE NMAKE /f "host.mak" CFG="host - Win32 Debug"
+!MESSAGE 
+!MESSAGE Possible choices for configuration are:
+!MESSAGE 
+!MESSAGE "host - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "host - Win32 Debug" (based on "Win32 (x86) Console Application")
+!MESSAGE 
+
+# Begin Project
+# PROP Scc_ProjName ""
+# PROP Scc_LocalPath ""
+CPP=cl.exe
+RSC=rc.exe
+
+!IF  "$(CFG)" == "host - Win32 Release"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 0
+# PROP BASE Output_Dir "Release"
+# PROP BASE Intermediate_Dir "Release"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 0
+# PROP Output_Dir "Release"
+# PROP Intermediate_Dir "Release"
+# PROP Ignore_Export_Lib 0
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /GX /O1 /I "..\..\include" /I "..\..\compat\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "WINNT" /D "i386" /D "HOST_RES_SEND" /YX /FD /c
+# ADD BASE RSC /l 0x409 /d "NDEBUG"
+# ADD RSC /l 0x409 /d "NDEBUG"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LINK32=link.exe
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wsock32.lib /nologo /subsystem:console /machine:I386
+
+!ELSEIF  "$(CFG)" == "host - Win32 Debug"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 1
+# PROP BASE Output_Dir "Debug"
+# PROP BASE Intermediate_Dir "Debug"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 1
+# PROP Output_Dir "Debug"
+# PROP Intermediate_Dir "Debug"
+# PROP Ignore_Export_Lib 0
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /MT /W3 /Gm /GX /Zi /O1 /I "..\..\include" /I "..\..\compat\include" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "WINNT" /D "i386" /D "HOST_RES_SEND" /FR /YX /FD /c
+# ADD BASE RSC /l 0x409 /d "_DEBUG"
+# ADD RSC /l 0x409 /d "_DEBUG"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LINK32=link.exe
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wsock32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+
+!ENDIF 
+
+# Begin Target
+
+# Name "host - Win32 Release"
+# Name "host - Win32 Debug"
+# Begin Group "LIBs"
+
+# PROP Default_Filter ".lib"
+# Begin Source File
+
+SOURCE=..\..\res\WinRel\resolv.lib
+# End Source File
+# End Group
+# Begin Source File
+
+SOURCE=..\..\compat\lib\gettimeofday.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\host.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\compat\lib\log.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\compat\lib\ntmisc.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\send.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\vers.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\compat\lib\writev.c
+# End Source File
+# End Target
+# End Project
+
+===============================================================================
+=====>>>>>>>>>>>>>>>>>>>>>>>>> host.dsw <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<=====
+===============================================================================
+
+Microsoft Developer Studio Workspace File, Format Version 5.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "host"=.\host.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+
+

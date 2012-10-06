@@ -1,0 +1,12 @@
+usr/bin/host		usr/bin/soa
+usr/bin/host		usr/bin/ns
+usr/bin/host		usr/bin/txt
+usr/bin/host		usr/bin/aaaa
+usr/bin/host		usr/bin/zone
+usr/bin/host		usr/bin/mx
+usr/share/man/man1/host.1.gz	usr/share/man/man1/soa.1.gz
+usr/share/man/man1/host.1.gz	usr/share/man/man1/ns.1.gz
+usr/share/man/man1/host.1.gz	usr/share/man/man1/txt.1.gz
+usr/share/man/man1/host.1.gz	usr/share/man/man1/aaaa.1.gz
+usr/share/man/man1/host.1.gz	usr/share/man/man1/zone.1.gz
+usr/share/man/man1/host.1.gz	usr/share/man/man1/mx.1.gz

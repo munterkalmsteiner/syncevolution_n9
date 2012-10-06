@@ -1,0 +1,25 @@
+Source: syncevolution
+Section: utils
+Priority: extra
+Maintainer: Ove Kaaven <ovek@debian.org>
+Build-Depends: debhelper (>= 5), autotools-dev, automake (>= 1:1.10),
+ libtool, libglib2.0-dev, libpcre3-dev, libcurl3-dev, libqtcontacts-dev,
+ libmkcal-dev, libsqlite3-dev, libboost1.42-dev, libcppunit-dev,
+ libxml2-dev, libssl-dev, libz-dev, dpatch
+Standards-Version: 3.7.2
+XSBC-Bugtracker: http://bugs.meego.com/buglist.cgi?product=SyncEvolution
+
+Package: syncevolution
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: SyncEvolution - a SyncML and CalDAV/CardDAV client
+ SyncEvolution allows you to sync your contacts and calendar with SyncML
+ and CalDAV/CardDAV servers on the Internet, such as Funambol, Ovi,
+ Google Contacts, and Google Calendar.
+
+Package: syncevolution-dev
+Architecture: any
+Section: libdevel
+Depends: ${shlibs:Depends}
+Description: SyncEvolution development files
+

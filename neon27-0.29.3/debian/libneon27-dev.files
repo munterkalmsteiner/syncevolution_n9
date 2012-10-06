@@ -1,0 +1,6 @@
+opt/maemo/usr/bin/neon-config
+opt/maemo/usr/include/neon
+opt/maemo/usr/lib/libneon.a
+opt/maemo/usr/lib/libneon.so
+opt/maemo/usr/lib/pkgconfig
+usr/share/man

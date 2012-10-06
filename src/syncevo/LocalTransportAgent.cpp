@@ -748,8 +748,7 @@ class LocalTransportAgentChild : public TransportAgent, private LoggerBase
             const std::string &sourceName = entry.first;
             const std::string &targetName = entry.second.first;
             std::string sync = entry.second.second;
-            SyncMode mode = StringToSyncMode(sync);
-            if (mode != SYNC_NONE) {
+            if (sync != "disabled") {
                 SyncSourceNodes targetNodes = m_client->getSyncSourceNodes(targetName);
                 SyncSourceConfig targetSource(targetName, targetNodes);
                 string fullTargetName = clientContext + "/" + targetName;
@@ -773,27 +772,16 @@ class LocalTransportAgentChild : public TransportAgent, private LoggerBase
                                                       serverConfig.first.c_str()));
                 }
                 // invert data direction
-                if (mode == SYNC_REFRESH_FROM_LOCAL) {
-                    mode = SYNC_REFRESH_FROM_REMOTE;
-                } else if (mode == SYNC_REFRESH_FROM_REMOTE) {
-                    mode = SYNC_REFRESH_FROM_LOCAL;
-                } else if (mode == SYNC_ONE_WAY_FROM_LOCAL) {
-                    mode = SYNC_ONE_WAY_FROM_REMOTE;
-                } else if (mode == SYNC_ONE_WAY_FROM_REMOTE) {
-                    mode = SYNC_ONE_WAY_FROM_LOCAL;
-                } else if (mode == SYNC_LOCAL_CACHE_SLOW) {
-                    // Remote side is running in caching mode and
-                    // asking for refresh. Send all our data.
-                    mode = SYNC_SLOW;
-                } else if (mode == SYNC_LOCAL_CACHE_INCREMENTAL) {
-                    // Remote side is running in caching mode and
-                    // asking for an update. Use two-way mode although
-                    // nothing is going to come back (simpler that way
-                    // than using one-way, which has special code
-                    // paths in libsynthesis).
-                    mode = SYNC_TWO_WAY;
+                if (sync == "refresh-from-local") {
+                    sync = "refresh-from-remote";
+                } else if (sync == "refresh-from-remote") {
+                    sync = "refresh-from-local";
+                } else if (sync == "one-way-from-local") {
+                    sync = "one-way-from-remote";
+                } else if (sync == "one-way-from-remote") {
+                    sync = "one-way-from-local";
                 }
-                targetSource.setSync(PrettyPrintSyncMode(mode, true), true);
+                targetSource.setSync(sync, true);
                 targetSource.setURI(sourceName, true);
             }
         }
@@ -868,7 +856,7 @@ public:
         // for a password. However, that does not cover failures
         // like the parent not asking us to sync in the first place
         // and also does not work with libdbus (https://bugs.freedesktop.org/show_bug.cgi?id=49728).
-        m_forkexec->m_onQuit.connect(onParentQuit);
+        m_forkexec->m_onQuit.connect(&onParentQuit);
 
         m_forkexec->connect();
     }

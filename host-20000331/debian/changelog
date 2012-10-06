@@ -1,0 +1,80 @@
+host (20000331-9) unstable; urgency=low
+
+  * Updated upstream's URL in debian/copyright (closes: #180373)
+  * Updated manpage about various representations of IP addresses,
+    thanks Ben Harris (closes: #185138)
+  * Lower-cased first letter of short description.
+  * Bumped Standards-Version to 3.5.10
+
+ -- Thomas Seyrat <tomasera@debian.org>  Mon,  9 Jun 2003 14:16:36 +0200
+
+host (20000331-8) unstable; urgency=low
+
+  * Bumped Standards-Version to 3.5.7
+
+ -- Thomas Seyrat <tomasera@debian.org>  Sat, 21 Sep 2002 15:45:15 +0200
+
+host (20000331-7) unstable; urgency=low
+
+  * Oops, removed erroneous patch supposed to fix #104132 while it's
+    not actually a bug. Octal representation of IP addresses is indeed
+    tolerated. Thanks Mika Liljeberg. (closes: #153722)
+  * Bumped Standards-Version to 3.5.6.1. 
+
+ -- Thomas Seyrat <tomasera@debian.org>  Sun, 21 Jul 2002 11:56:03 +0200
+
+host (20000331-6) unstable; urgency=low
+
+  * Applied patch from Emmanuel le Chevoir <manu42@free.fr> to fix zero-padded
+    IP addresses treated as octal. (closes: #104132)
+  * Documented -B option (enforce BIND default behavior) in host.1.
+
+ -- Thomas Seyrat <tomasera@debian.org>  Sun, 14 Jul 2002 16:42:44 +0200
+
+host (20000331-5) unstable; urgency=low
+
+  * Priority is in fact to remain extra, since bind9-host seems to be know
+    highly preferred, with a standard priority.
+
+ -- Thomas Seyrat <tomasera@debian.org>  Mon,  3 Jun 2002 14:36:47 +0200
+
+host (20000331-4) unstable; urgency=low
+
+  * Added exit status values to man page. (closes: #146241)
+  * Removed host.manpages, host.dirs, host.docs. 
+
+ -- Thomas Seyrat <tomasera@debian.org>  Mon,  3 Jun 2002 10:59:27 +0200
+
+host (20000331-3) unstable; urgency=low
+
+  * New maintainer. (closes: #136736)
+  * Updated description. (closes: #108049, #130434)
+  * Removed CFLAGS from debian/rules (hopefully this fixes many problems).
+    (closes: #108438, #88928, #90174, #97340, #109912, #122126)
+
+ -- Thomas Seyrat <tomasera@debian.org>  Thu, 21 Mar 2002 15:41:01 +0100
+
+host (20000331-2) unstable; urgency=low
+
+  * Orphan.  
+  * I no longer use this, since I prefer bind9-host.  I see no evidence that
+    this package is being maintained upstream, and the bug list is long.
+
+ -- Bdale Garbee <bdale@gag.com>  Mon,  4 Mar 2002 01:07:42 -0700
+
+host (20000331-1) unstable; urgency=low
+
+  * Update to latest upstream source, closes: #28042, #41255, #79422
+  * add 'txt' to the set of zone-type links provided.  They all feel like
+    namespace polution to me, but there is no conflicting usage in the Contents
+    files, and users do seem to really like these.  Closes: #74958
+
+ -- Bdale Garbee <bdale@gag.com>  Mon, 26 Feb 2001 18:23:07 -0700
+
+host (19990701-1) unstable; urgency=low
+
+  * Separated from the BIND source package as part of releasing BIND 9, was
+    formerly part of the dnsutils package.
+
+ -- Bdale Garbee <bdale@gag.com>  Sat, 27 Jan 2001 02:05:21 -0700
+
