@@ -46,8 +46,8 @@ endif
 CONFIGURE_FLAGS += --enable-maemo --enable-shared --disable-static \
  --disable-ssl-certificate-check \
  --disable-libsoup --enable-libcurl --disable-ecal --disable-ebook \
- --enable-qtcontacts --enable-kcalextended \
- --disable-bluetooth --enable-dav --with-synthesis-src=libsynthesis
+ --enable-qtcontacts --enable-kcalextended --enable-dbus-service \
+ --disable-bluetooth --enable-dav --with-synthesis-src=libsynthesis 
 
 HOSTDIR = host-20000331
 HOST_BIN = $(HOSTDIR)/host

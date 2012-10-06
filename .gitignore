@@ -13,6 +13,8 @@ Makefile.in
 /INSTALL
 /autom4te.cache
 /aclocal.m4
+/build-arch-stamp
+/build-indep-stamp
 /compile
 /config.guess
 /config.h
@@ -35,6 +37,31 @@ Makefile.in
 /syncevolution.1
 /syncevolution-*.tar.gz
 
+# debian
+/debian/files
+/debian/syncevolution-dev.debhelper.log
+/debian/syncevolution-dev.substvars
+/debian/syncevolution-dev/
+/debian/syncevolution.debhelper.log
+/debian/syncevolution.postinst.debhelper
+/debian/syncevolution.postrm.debhelper
+/debian/syncevolution.substvars
+/debian/syncevolution/
+/debian/tmp/
+
+# host
+/host-20000331/host
+
+# neon
+/neon27-0.29.3/config.h
+/neon27-0.29.3/config.log
+/neon27-0.29.3/config.status
+/neon27-0.29.3/debian/patched/
+/neon27-0.29.3/libtool
+/neon27-0.29.3/neon-config
+/neon27-0.29.3/neon.pc
+/neon27-0.29.3/patch-stamp
+
 # po
 /po/*.gmo
 /po/.intltool-merge-cache
@@ -42,6 +69,8 @@ Makefile.in
 /po/Makefile.in.in
 /po/POTFILES
 /po/stamp-it
+
+# neon
 
 # src
 /src/autotroll.mk
@@ -57,6 +86,7 @@ Makefile.in
 /src/syncevo-http-server
 /src/syncevolution
 /src/testcases/
+/src/build-synthesis/
 
 # src/backends
 /src/backends/backends.am
