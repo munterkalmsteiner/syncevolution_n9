@@ -1,0 +1,48 @@
+# ignore multi-git repos
+.git_*/
+switchgit
+
+# ignore XCode build dir
+src/build/
+
+# ignore XCode user specific settings/schemes
+xcuserdata/
+
+# ignore generated files
+*.o
+src/sysync_SDK/bin
+src/Makefile.am
+src/CLIENT_FILES
+src/EXCLUDE_FILES
+src/EXTRA_FILES
+src/SDK_FILES
+src/SERVER_FILES
+src/SDK_EXCLUDE_FILES
+Makefile.in
+configure
+m4
+aclocal.m4
+autom4te.cache
+config.guess
+config.log
+config.status
+config.sub
+config.h.in
+depcomp
+install-sh
+libtool
+ltmain.sh
+missing
+compile
+Makefile
+# ignore Mac OS X finder metadata files
+.DS_Store
+# ignore Mac OS X ressource dir created by zip
+__MACOSX/
+# ignore all sorts of backup files
+*.orig
+*~
+*.BAK
+*.bak
+# no CVS
+CVS/

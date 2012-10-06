@@ -1,0 +1,326 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA747D9F0F9514B9006C5449 /* dbplugin_cocoa_sample_ios_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* dbplugin_cocoa_sample_ios_Prefix.pch */; };
+		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
+		EDDBA76A13040BB7005913FE /* dbplugin_cocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA75F13040BB7005913FE /* dbplugin_cocoa.h */; };
+		EDDBA76C13040BB7005913FE /* dbplugin_cocoa_wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDDBA76113040BB7005913FE /* dbplugin_cocoa_wrapper.mm */; };
+		EDDBA76D13040BB7005913FE /* SettingsKey.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA76213040BB7005913FE /* SettingsKey.h */; };
+		EDDBA76E13040BB7005913FE /* SettingsKey.m in Sources */ = {isa = PBXBuildFile; fileRef = EDDBA76313040BB7005913FE /* SettingsKey.m */; };
+		EDDBA77513040CB7005913FE /* sample_dbplugin1.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDDBA77413040CB7005913FE /* sample_dbplugin1.mm */; };
+		EDDBA77913040F7E005913FE /* sample_dbplugin1.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA77813040F7E005913FE /* sample_dbplugin1.h */; };
+		EDDBA7881304104E005913FE /* SDK_util.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA7811304104E005913FE /* SDK_util.h */; };
+		EDDBA7891304104E005913FE /* syerror.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA7821304104E005913FE /* syerror.h */; };
+		EDDBA78A1304104E005913FE /* sync_dbapi.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA7831304104E005913FE /* sync_dbapi.h */; };
+		EDDBA78B1304104E005913FE /* sync_dbapidef.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA7841304104E005913FE /* sync_dbapidef.h */; };
+		EDDBA78C1304104E005913FE /* sync_declarations.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA7851304104E005913FE /* sync_declarations.h */; };
+		EDDBA78E1304104E005913FE /* sync_uiapi.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA7871304104E005913FE /* sync_uiapi.h */; };
+		EDDBA79413041085005913FE /* sync_include.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA79313041085005913FE /* sync_include.h */; };
+		EDDBA798130410C7005913FE /* target_options.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA797130410C7005913FE /* target_options.h */; };
+		EDDBA7EE13042560005913FE /* sample_dbplugin2.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA7E813042560005913FE /* sample_dbplugin2.h */; };
+		EDDBA7EF13042560005913FE /* sample_dbplugin2.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDDBA7E913042560005913FE /* sample_dbplugin2.mm */; };
+		EDDBA7F013042560005913FE /* sample_dbplugin3.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA7EA13042560005913FE /* sample_dbplugin3.h */; };
+		EDDBA7F113042560005913FE /* sample_dbplugin3.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDDBA7EB13042560005913FE /* sample_dbplugin3.mm */; };
+		EDDBA7F213042560005913FE /* sample_dbplugin4.h in Headers */ = {isa = PBXBuildFile; fileRef = EDDBA7EC13042560005913FE /* sample_dbplugin4.h */; };
+		EDDBA7F313042560005913FE /* sample_dbplugin4.mm in Sources */ = {isa = PBXBuildFile; fileRef = EDDBA7ED13042560005913FE /* sample_dbplugin4.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA747D9E0F9514B9006C5449 /* dbplugin_cocoa_sample_ios_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dbplugin_cocoa_sample_ios_Prefix.pch; sourceTree = SOURCE_ROOT; };
+		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D2AAC07E0554694100DB518D /* libdbplugin_cocoa_sample_ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdbplugin_cocoa_sample_ios.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDDBA75F13040BB7005913FE /* dbplugin_cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dbplugin_cocoa.h; sourceTree = "<group>"; };
+		EDDBA76013040BB7005913FE /* dbplugin_cocoa.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dbplugin_cocoa.m; sourceTree = "<group>"; };
+		EDDBA76113040BB7005913FE /* dbplugin_cocoa_wrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = dbplugin_cocoa_wrapper.mm; sourceTree = "<group>"; };
+		EDDBA76213040BB7005913FE /* SettingsKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsKey.h; sourceTree = "<group>"; };
+		EDDBA76313040BB7005913FE /* SettingsKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsKey.m; sourceTree = "<group>"; };
+		EDDBA77413040CB7005913FE /* sample_dbplugin1.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = sample_dbplugin1.mm; sourceTree = "<group>"; };
+		EDDBA77813040F7E005913FE /* sample_dbplugin1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sample_dbplugin1.h; sourceTree = "<group>"; };
+		EDDBA7811304104E005913FE /* SDK_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDK_util.h; sourceTree = "<group>"; };
+		EDDBA7821304104E005913FE /* syerror.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = syerror.h; sourceTree = "<group>"; };
+		EDDBA7831304104E005913FE /* sync_dbapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sync_dbapi.h; sourceTree = "<group>"; };
+		EDDBA7841304104E005913FE /* sync_dbapidef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sync_dbapidef.h; sourceTree = "<group>"; };
+		EDDBA7851304104E005913FE /* sync_declarations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sync_declarations.h; sourceTree = "<group>"; };
+		EDDBA7871304104E005913FE /* sync_uiapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sync_uiapi.h; sourceTree = "<group>"; };
+		EDDBA79313041085005913FE /* sync_include.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sync_include.h; sourceTree = "<group>"; };
+		EDDBA797130410C7005913FE /* target_options.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = target_options.h; sourceTree = "<group>"; };
+		EDDBA7E813042560005913FE /* sample_dbplugin2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sample_dbplugin2.h; sourceTree = "<group>"; };
+		EDDBA7E913042560005913FE /* sample_dbplugin2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = sample_dbplugin2.mm; sourceTree = "<group>"; };
+		EDDBA7EA13042560005913FE /* sample_dbplugin3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sample_dbplugin3.h; sourceTree = "<group>"; };
+		EDDBA7EB13042560005913FE /* sample_dbplugin3.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = sample_dbplugin3.mm; sourceTree = "<group>"; };
+		EDDBA7EC13042560005913FE /* sample_dbplugin4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sample_dbplugin4.h; sourceTree = "<group>"; };
+		EDDBA7ED13042560005913FE /* sample_dbplugin4.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = sample_dbplugin4.mm; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2AAC07C0554694100DB518D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC07E0554694100DB518D /* libdbplugin_cocoa_sample_ios.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* dbplugin_cocoa_sample_ios */ = {
+			isa = PBXGroup;
+			children = (
+				EDDBA78013040FEB005913FE /* sysync_SDK */,
+				EDDBA75E13040BB7005913FE /* sdk_sources_cocoa */,
+				08FB77AEFE84172EC02AAC07 /* DB_plugins */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				0867D69AFE84028FC02AAC07 /* Frameworks */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = dbplugin_cocoa_sample_ios;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* DB_plugins */ = {
+			isa = PBXGroup;
+			children = (
+				EDDBA77813040F7E005913FE /* sample_dbplugin1.h */,
+				EDDBA77413040CB7005913FE /* sample_dbplugin1.mm */,
+				EDDBA7E813042560005913FE /* sample_dbplugin2.h */,
+				EDDBA7E913042560005913FE /* sample_dbplugin2.mm */,
+				EDDBA7EA13042560005913FE /* sample_dbplugin3.h */,
+				EDDBA7EB13042560005913FE /* sample_dbplugin3.mm */,
+				EDDBA7EC13042560005913FE /* sample_dbplugin4.h */,
+				EDDBA7ED13042560005913FE /* sample_dbplugin4.mm */,
+			);
+			name = DB_plugins;
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				EDDBA797130410C7005913FE /* target_options.h */,
+				AA747D9E0F9514B9006C5449 /* dbplugin_cocoa_sample_ios_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		EDDBA75E13040BB7005913FE /* sdk_sources_cocoa */ = {
+			isa = PBXGroup;
+			children = (
+				EDDBA75F13040BB7005913FE /* dbplugin_cocoa.h */,
+				EDDBA76013040BB7005913FE /* dbplugin_cocoa.m */,
+				EDDBA76113040BB7005913FE /* dbplugin_cocoa_wrapper.mm */,
+				EDDBA76213040BB7005913FE /* SettingsKey.h */,
+				EDDBA76313040BB7005913FE /* SettingsKey.m */,
+			);
+			name = sdk_sources_cocoa;
+			path = ../sdk_sources_cocoa;
+			sourceTree = SOURCE_ROOT;
+		};
+		EDDBA78013040FEB005913FE /* sysync_SDK */ = {
+			isa = PBXGroup;
+			children = (
+				EDDBA79313041085005913FE /* sync_include.h */,
+				EDDBA7811304104E005913FE /* SDK_util.h */,
+				EDDBA7821304104E005913FE /* syerror.h */,
+				EDDBA7831304104E005913FE /* sync_dbapi.h */,
+				EDDBA7841304104E005913FE /* sync_dbapidef.h */,
+				EDDBA7851304104E005913FE /* sync_declarations.h */,
+				EDDBA7871304104E005913FE /* sync_uiapi.h */,
+			);
+			name = sysync_SDK;
+			path = ../Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC07A0554694100DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA747D9F0F9514B9006C5449 /* dbplugin_cocoa_sample_ios_Prefix.pch in Headers */,
+				EDDBA76A13040BB7005913FE /* dbplugin_cocoa.h in Headers */,
+				EDDBA76D13040BB7005913FE /* SettingsKey.h in Headers */,
+				EDDBA77913040F7E005913FE /* sample_dbplugin1.h in Headers */,
+				EDDBA7881304104E005913FE /* SDK_util.h in Headers */,
+				EDDBA7891304104E005913FE /* syerror.h in Headers */,
+				EDDBA78A1304104E005913FE /* sync_dbapi.h in Headers */,
+				EDDBA78B1304104E005913FE /* sync_dbapidef.h in Headers */,
+				EDDBA78C1304104E005913FE /* sync_declarations.h in Headers */,
+				EDDBA78E1304104E005913FE /* sync_uiapi.h in Headers */,
+				EDDBA79413041085005913FE /* sync_include.h in Headers */,
+				EDDBA798130410C7005913FE /* target_options.h in Headers */,
+				EDDBA7EE13042560005913FE /* sample_dbplugin2.h in Headers */,
+				EDDBA7F013042560005913FE /* sample_dbplugin3.h in Headers */,
+				EDDBA7F213042560005913FE /* sample_dbplugin4.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC07D0554694100DB518D /* dbplugin_cocoa_sample_ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "dbplugin_cocoa_sample_ios" */;
+			buildPhases = (
+				D2AAC07A0554694100DB518D /* Headers */,
+				D2AAC07B0554694100DB518D /* Sources */,
+				D2AAC07C0554694100DB518D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = dbplugin_cocoa_sample_ios;
+			productName = dbplugin_cocoa_sample_ios;
+			productReference = D2AAC07E0554694100DB518D /* libdbplugin_cocoa_sample_ios.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "dbplugin_cocoa_sample_ios" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* dbplugin_cocoa_sample_ios */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC07D0554694100DB518D /* dbplugin_cocoa_sample_ios */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC07B0554694100DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDDBA76C13040BB7005913FE /* dbplugin_cocoa_wrapper.mm in Sources */,
+				EDDBA76E13040BB7005913FE /* SettingsKey.m in Sources */,
+				EDDBA77513040CB7005913FE /* sample_dbplugin1.mm in Sources */,
+				EDDBA7EF13042560005913FE /* sample_dbplugin2.mm in Sources */,
+				EDDBA7F113042560005913FE /* sample_dbplugin3.mm in Sources */,
+				EDDBA7F313042560005913FE /* sample_dbplugin4.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB921F08733DC00010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/../bin/iOS/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/dbplugin_cocoa_sample_ios.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = dbplugin_cocoa_sample_ios_Prefix.pch;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = dbplugin_cocoa_sample_ios;
+			};
+			name = Debug;
+		};
+		1DEB922008733DC00010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/../bin/iOS/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				DSTROOT = /tmp/dbplugin_cocoa_sample_ios.dst;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = dbplugin_cocoa_sample_ios_Prefix.pch;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = dbplugin_cocoa_sample_ios;
+			};
+			name = Release;
+		};
+		1DEB922308733DC00010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1DEB922408733DC00010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "dbplugin_cocoa_sample_ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB921F08733DC00010E9CD /* Debug */,
+				1DEB922008733DC00010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "dbplugin_cocoa_sample_ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB922308733DC00010E9CD /* Debug */,
+				1DEB922408733DC00010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

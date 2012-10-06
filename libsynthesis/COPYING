@@ -1,0 +1,11 @@
+Unless noted otherwise, all files are triple-licensed LGPL v2.1
+(LICENSE.LGPL-2.1), LGPL 3.0 (LICENSE.LGPL-3) and EPL (LICENSE.EPL)
+
+For a commercial license, please contact synthesis.ch or plan44.ch.
+
+Files in the following directories are under a different license:
+
+src/expat           : public domain (src/expat/copying.txt)
+doc, src/sysync_SDK : BSD (LICENSE.BSD)
+src/syncml_tk       : BSD-like license (src/syncml_tk/opensource_license.txt)
+src/zlib            : BSD-like (src/zlib/README)

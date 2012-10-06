@@ -1,0 +1,189 @@
+# The Makefile.am is generated from Makefile.am.in by autogen.sh
+# because the list of files to compile has to be determined
+# dynamically.
+#
+# When adding new files or changing options rerun autogen.sh.
+# Beware that changes made to Makefile.am will get lost, always
+# edit Makefile.am.in! The following rule ensures that make
+# itself will rebuild its makefiles when Makefile.am.in is edited.
+$(srcdir)/Makefile.am: $(srcdir)/Makefile.am.in $(srcdir)/gen-makefile-am.sh
+	cd $(srcdir) && sh ./gen-makefile-am.sh
+
+# versioning for *all* libs
+#
+# CURRENT - most recent interface version
+# REVISION - minor version number of that interface implementation
+# AGE - number of previous interface versions supported in addition
+#       to the current one
+#
+# When adding to the interface, increment CURRENT and AGE and reset
+# REVISION to zero. When breaking the interface in a backwards
+# incompatible way, increment CURRENT and reset AGE and REVISION to
+# zero. When fixing something without interface change, increment
+# REVISION.
+ENGINE_CURRENT = 6
+ENGINE_REVISION = 0
+ENGINE_AGE = 6
+
+CLEANFILES =
+EXTRA_DIST =
+
+lib_LTLIBRARIES = libsmltk.la libsynthesis.la libsynthesissdk.la libsynthesisstubs.la
+nobase_include_HEADERS = @LIBSYNTHESISSDK_HEADERS@ synthesis/target_options.h
+
+# Configuration header files are searched in this order:
+# - Targets/ReleasedProducts/autotools: files only used when compiling with autotools
+# - Targets/ReleasedProducts/[combiEngine_opensource_linux|serverEngine_opensource_linux|SDK]: files also used with Synthesis Linux makefile
+#
+# Always included first via -include:
+# - config.h: configure result (top directory)
+# - Targets/ReleasedProducts/combiEngine_opensource_linux/clientengine_demo_x86_linux_prefix.h resp. Targets/ReleasedProducts/serverEngine_opensource_linux/serverengine_opensource_linux_prefix.h
+#
+# Included as needed:
+# - define.h: hard-coded SyncML Toolkit config (from search path above)
+
+libsynthesis_la_SOURCES = @LIBSYNTHESIS_SOURCES@ \
+	$(XMLPARSE_SOURCES)
+libsynthesis_la_CPPFLAGS = -I$(srcdir)/sysync_SDK/Sources
+libsynthesis_la_CFLAGS = \
+	$(SYNTHESIS_WFLAGS) \
+	-include $(top_builddir)/config.h \
+	-include $(srcdir)/Targets/ReleasedProducts/combiEngine_opensource_linux/combiengine_opensource_linux_prefix.h \
+	-I$(srcdir)/Targets/ReleasedProducts/clientEngine_autotools/ \
+	-I$(srcdir)/Targets/ReleasedProducts/combiEngine_opensource_linux/ \
+	-I$(srcdir)/platform_adapters/linux/ \
+	-I$(srcdir)/platform_adapters/unix_common/ \
+	-I$(srcdir)/platform_adapters/ \
+	-I$(srcdir)/syncapps/clientEngine_custom/ \
+	-I$(srcdir)/syncapps/serverEngine_custom/ \
+	-I$(srcdir)/sysync/ \
+	-I$(srcdir)/Transport_interfaces/engine/ \
+	-I$(srcdir)/ \
+	-I$(srcdir)/syncml_tk/src/sml/inc/ \
+	-I$(srcdir)/syncml_tk/src/sml/lib/inc/ \
+	-I$(srcdir)/syncml_tk/src/sml/lib/ \
+	-I$(srcdir)/syncml_tk/src/sml/mgr/inc/ \
+	-I$(srcdir)/syncml_tk/src/sml/mgr/ \
+	-I$(srcdir)/syncml_tk/src/sml/wsm/inc/ \
+	-I$(srcdir)/syncml_tk/src/sml/xlt/inc \
+	-I$(srcdir)/syncml_tk/src/sml/xlt/all \
+	-I$(srcdir)/DB_interfaces/odbc_db/ \
+	-I$(srcdir)/DB_interfaces/api_db/ \
+	-I$(srcdir)/sysync_SDK/Sources/ \
+	$(PCRE_CFLAGS) \
+	$(SQLITE3_CFLAGS) \
+	$(ZLIB_CFLAGS) \
+	$(XMLPARSE_CFLAGS) \
+	$(XMLPARSE_CFLAGS_BUILTIN) \
+	$(LIBICAL_CFLAGS) \
+	$(LIBECAL_CFLAGS)
+libsynthesis_la_CXXFLAGS = $(libsynthesis_la_CFLAGS)
+libsynthesis_la_LIBADD = $(PCRE_LIBS) $(SQLITE3_LIBS) $(XMLPARSE_LIBS) $(LIBICAL_LIBS) $(LIBECAL_LIBS) libsmltk.la -lz -ldl -lpthread
+libsynthesis_la_LDFLAGS = -version-info $(ENGINE_CURRENT):$(ENGINE_REVISION):$(ENGINE_AGE) \
+	-Wl,--version-script=$(srcdir)/synthesis-linker.map
+libsynthesis_la_DEPENDENCIES = $(srcdir)/synthesis-linker.map libsmltk.la
+
+if COND_XMLPARSE
+XMLPARSE_CFLAGS_BUILTIN = -I$(srcdir)/expat -I$(srcdir)/expat/xmltok -I$(srcdir)/expat/xmlparse
+XMLPARSE_SOURCES = \
+	expat/xmlparse/xmlparse.c \
+	expat/xmlparse/xmlparse.h \
+	expat/xmltok/ascii.h \
+	expat/xmltok/asciitab.h \
+	expat/xmltok/iasciitab.h \
+	expat/xmltok/latin1tab.h \
+	expat/xmltok/nametab.h \
+	expat/xmltok/utf8tab.h \
+	expat/xmltok/xmldef.h \
+	expat/xmltok/xmlrole.c \
+	expat/xmltok/xmlrole.h \
+	expat/xmltok/xmltok.c \
+	expat/xmltok/xmltok.h \
+	expat/xmltok/xmltok_impl.h
+EXTRA_DIST += \
+	expat/xmltok/xmltok_impl.c \
+	expat/xmltok/xmltok_ns.c
+else
+# add path to xmlparse.h which includes the system's xmltok/xmlparse.h
+XMLPARSE_CFLAGS_BUILTIN = -I$(srcdir)/Targets/ReleasedProducts/clientEngine_autotools/systemxml
+endif
+
+libsynthesissdk_la_LIBADD = libsmltk.la # san.cpp calls sml* functions directly
+libsynthesissdk_la_LDFLAGS = -static
+libsynthesissdk_la_CFLAGS = $(PIC_CXXFLAGS) $(SYNTHESIS_WFLAGS)
+libsynthesissdk_la_CXXFLAGS = $(PIC_CXXFLAGS) $(SYNTHESIS_WFLAGS)
+libsynthesissdk_la_SOURCES = @LIBSYNTHESISSDK_HEADERS@
+if COND_STATIC
+libsynthesissdk_la_SOURCES += @LIBSYNTHESISSDK_SOURCES_SDK_ONLY@
+else
+libsynthesissdk_la_SOURCES += @LIBSYNTHESISSDK_SOURCES_BOTH@
+endif
+libsynthesissdk_la_CPPFLAGS = \
+	-D_GNU_SOURCE=1 \
+	-include $(top_builddir)/config.h \
+	-I$(srcdir)/Targets/ReleasedProducts/SDK \
+	-I$(srcdir)/sysync_SDK/Sources \
+	-I$(srcdir)/platform_adapters/linux/ \
+	-I$(srcdir)/platform_adapters/unix_common/ \
+	-I$(srcdir)/platform_adapters/ \
+	-I$(srcdir)/sysync/ \
+	-I$(srcdir)/syncml_tk/src/sml/inc/ \
+	-I$(srcdir)/syncml_tk/src/sml/lib/inc/ \
+	-I$(srcdir)/syncml_tk/src/sml/mgr/inc/
+
+libsynthesisstubs_la_LDFLAGS = -static
+libsynthesisstubs_la_CFLAGS = $(libsynthesissdk_la_CXXFLAGS)
+libsynthesisstubs_la_CXXFLAGS = $(libsynthesissdk_la_CXXFLAGS)
+libsynthesisstubs_la_SOURCES = sysync_SDK/Sources/enginestubs.c
+libsynthesisstubs_la_CPPFLAGS = $(libsynthesissdk_la_CPPFLAGS)
+
+# All files needed by libsynthesissdk.a come from either
+# sysync_SDK/Sources (shared between engine and SDK) or
+# sysync_SDK/SDK (only in SDK). We patch the files so that
+# they include their own files via #include "synthesis/..."
+vpath %.cpp $(srcdir)/sysync_SDK/Sources $(srcdir)/sysync_SDK/SDK
+vpath %.c $(srcdir)/sysync_SDK/Sources $(srcdir)/sysync_SDK/SDK
+vpath %.h $(srcdir)/sysync_SDK/Sources $(srcdir)/sysync_SDK/SDK
+@LIBSYNTHESISSDK_HEADERS@: synthesis/%: %
+	mkdir -p synthesis
+	sed -e 's;# *include  *";#include "synthesis/;' -e 's/defined(HAVE_STDINT_H)/1/' $< >$@
+
+synthesis/target_options.h: $(srcdir)/Targets/ReleasedProducts/SDK/target_options.h
+	mkdir -p synthesis
+	cp $< $@
+
+# ensure that the header file is in place before compiling the SDK
+@LIBSYNTHESISSDK_SOURCES@: synthesis/target_options.h
+
+# libsmltk: compiled just like libsynthesis
+libsmltk_la_SOURCES = @LIBSMLTK_SOURCES@
+libsmltk_la_CFLAGS = $(libsynthesis_la_CFLAGS)
+libsmltk_la_CXXFLAGS = $(libsmltk_la_CFLAGS)
+
+# versioning: same as of engine! changes in libsmltk are not tracked separately.
+libsmltk_la_LDFLAGS = -version-info $(ENGINE_CURRENT):$(ENGINE_REVISION):$(ENGINE_AGE) \
+	-Wl,--version-script=$(srcdir)/smltk-linker.map
+libsmltk_la_DEPENDENCIES = $(srcdir)/smltk-linker.map
+
+# Doxygen for complete source code as used in autotools build.
+# The dependency on the libs ensures that doxygen is invoked
+# anew when any input file for those changes, reusing the
+# automatic dependency tracking. A side effect (both good
+# and bad) is that doxygen will not be invoked on code
+# which does not compile.
+html/index.html: Doxyfile libsynthesis.la libsynthesissdk.la
+	rm -rf html
+	INPUT="$(srcdir)/platform_adapters $(srcdir)/syncml_tk $(srcdir)/sysync_SDK $(srcdir)/sysync $(srcdir)/DB_interfaces" \
+	INCLUDE_PATH="$(srcdir)/Targets/ReleasedProducts/autotools $(srcdir)/Targets/ReleasedProducts/combiEngine_opensource_linux $(srcdir)/sysync_SDK/Sources" \
+	PREDEFINED="`cat $(srcdir)/Targets/ReleasedProducts/combiEngine_opensource_linux/target_options.h  | grep '^#define' | grep '1 *$$' | sed -e 's/#define //' -e 's/ 1//'`" \
+	doxygen $<
+
+.PHONY: doxygen
+doxygen: html/index.html
+clean-doxygen:
+	rm -rf html
+
+if COND_DOXYGEN
+all: doxygen
+clean-local: clean-doxygen
+endif

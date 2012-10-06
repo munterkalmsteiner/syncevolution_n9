@@ -1,0 +1,50 @@
+/* precompiled headers source file
+ * ===============================
+ *
+ *  CVS:
+ *    $Author: bfo $
+ *    $Date: 2007/11/08 15:58:02 $
+ *    $Revision: 1.1 $
+ *    $Source: /usr/local/cvsroot/sysync/Source/Targets/ReleasedProducts/clientEngine_DEMO_linux/clientengine_demo++.pch,v $
+ *    $State: Exp $
+ *    $Name:  $ (Tag)
+ *    $Locker:  $ (who has reserved checkout)
+ *  Log:
+ *    $Log: clientengine_demo++.pch,v $
+ *    Revision 1.1  2007/11/08 15:58:02  bfo
+ *    project files added
+ *
+ *    Revision 1.1  2007/10/02 10:12:57  luz
+ *    Added clientEngine_DEMO target to xcode
+ *
+ *    Revision 1.1  2007/09/13 18:55:30  luz
+ *    New DEMO client engine (SQLite, TextDB but no ODBC nor DBPlugins) release target
+ *
+ *    Revision 1.1  2007/09/05 14:03:05  luz
+ *    client engine with custom datastores (SQL, ODBC, SQLite and PluginAPI)
+ *
+ *    Revision 1.2  2007/04/25 11:59:30  luz
+ *    Moved platform specific includes to syncclient_outlook_precomp.h - it belongs there so that file can be used in MW precompiled header source files (.pch) as well as in prefix_file.h for VC++.
+ *
+ *    Revision 1.1  2004/02/04 14:24:06  luz
+ *    2.0.5.3 s2g/ONE client release (and Oracle release candidate) checkin
+ *
+ *
+ */
+
+// SySync is a C++ project, make sure precomp headers
+// are compiled as C++!
+#pragma cplusplus on
+
+// determine target file name
+#pragma precompile_target	"clientengine_demo_x86_linux++.mch"
+
+
+// include all headers that are suitable for precompiled use
+
+// - target options can incfluence everything
+#include "target_options.h"
+// - precompilable headers
+#include "clientengine_custom_precomp.h"
+
+// eof

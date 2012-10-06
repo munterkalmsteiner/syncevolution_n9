@@ -1,0 +1,110 @@
+Sample code for libsynthesis on iOS
+===================================
+
+This directory contains a fully functional Cocoa touch based iPhone
+application using libsynthesis for iPhone to
+implement two-way SyncML synchronisation of contacts and calendar
+stored in TAB separated text files (using the built-in textdb plugin).
+
+Note that plan44.ch licenses commercial plugins for iOS native
+contacts and calendars, which are not part of libsynthesis.
+
+Direct mapping to SQLite3 databases however is part of libsynthesis
+and can be used to create sync apps without writing DB plugins.
+See doc/SySync_config_reference.pdf for information about configuration
+of libsynthesis.
+
+Due to the requirement of static linking in iOS, libsynthesis
+cannot be linked into a iOS app project without also linking another
+*.a library containing 4 custom plugins (named iphone_dbplugin1..4).
+
+The SDK provides a sample project with those 4 (dummy) plugins, which builds such a
+library (src/dbplugin_cocoa_sample/dbplugin_cocoa_sample_ios.xcodeproj).
+By adding functionality into the sample_dbplugin1..4.mm/.h files, up to 4
+different custom DB backends can be implemented.
+
+Please contact plan44.ch for licensing conditions for the native contacts and
+calendar plugins.
+
+
+SyncML Client sample application
+--------------------------------
+
+The sample application shows how to interface with the libsynthesis
+to configure the settings and how to run a sync session.
+The UI is minimal but fully functional.
+
+The "SyncMLClientSample" application is based on the "Utility Application" XCode
+template which is part of the iPhone OS SDK. It includes libsynthesis and
+the 4 dummy DB plugins as subprojects.
+
+To build and run the SyncMLClientSample iPhone application, take the following
+steps:
+
+1) Open the "ios_syncclient_app_sample.xcodeproj" XCode project using
+   a recent XCode version with a iOS SDK >4.2
+
+2) Choose the "ios_syncclient_app_sample" target.
+
+3) Set the desired target SDK/Platform. You can build for the simulator or the
+   device. For the device, you need to configure the codesign certificates
+   in the target settings.
+
+4) Build the project to create the "ios_syncclient_app_sample.app" application.
+
+5) Run the app (in the simulator or on a connected debug iOS device.
+   Press the small "i" button to open the settings screen where you
+   can put in a SyncML server URL, login, server path and sync mode. Press
+   "Start Synchronisation" to start a sync session synchronizing the
+   contents of TAB separated text files in the /Documents directory of
+   the app's sandbox to a SyncML server.
+
+
+Linking information
+-------------------
+
+libsynthesis and the plugins are linked as static libraries (iOS does not
+allow dylibs).
+
+For that, the library projects are included as subprojects into the sample app
+project.
+Two settings need to be made to have XCode build and link everything (these
+are already set up in the sample project, but are important to understand in case
+you want to use another libsynthesis target or another plugin library)
+
+1) In the app's target settings under "build phases", "target dependencies"
+   need to be defined for the libsynthesis target you want to use and for
+   the plugin library target.
+
+2) Also in the app's target settings, under "build phases", "link binary
+   with libraries" the actual library builds (.a files) need to be
+   selected. When you press "+", the first folder presented is called
+   "workspace" and lists the libraries available.
+
+Note: The Debug target build configuration has a GCC_PREPROCESSOR_DEFINITIONS
+      setting DEBUG=1. The DEBUG symbol is used to switch on some extra debug
+      information to the console. Make sure you DONT have
+      DEBUG defined in release builds!
+
+
+The Cocoa wrapper classes for the Sync Engine, Settings Keys, and DB Plugins
+----------------------------------------------------------------------------
+
+libsynthesis includes three Objective C wrapper files in the
+"src/sysync_SDK/sdk_sources_cocoa" which wrap the quite complex libsynthesis
+C API into easy to use Cocoa objects.
+
+The sample project uses the wrapper for the sync
+engine itself (SyncEngine object, used within the SyncMLClient object),
+for a sync session (SyncSession object) and for the settings key (SettingsKey object).
+The SettingsKey object has basic KVC capability so it can be used with UI components
+which use KVC to address their content (this feature is however not used
+in the sample app, instead direct accessor methods modelled after the C
+API of the library are used).
+
+The file "dbplugin_cocoa" contains wrapper classes for creating custom
+database adaptor plugins.
+The dbplugin_cocoa_sample_ios.xcodeproj project contains a set of
+4 dummy DB plugins that can be extended to create real DB plugins.
+
+(c) 2011-2012 by plan44.ch

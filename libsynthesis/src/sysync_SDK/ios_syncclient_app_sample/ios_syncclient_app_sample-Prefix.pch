@@ -1,0 +1,17 @@
+//
+// Prefix header for all source files of the 'ios_syncclient_app_sample' target in the 'ios_syncclient_app_sample' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_4_0
+#warning "This project uses features only available in iOS SDK 4.0 and later."
+#endif
+
+// iOS always has statically linked libraries, so it must link libsynthesis statically as well
+#define SYSYNC_ENGINE_STATIC 1
+
+#ifdef __OBJC__
+  #import <UIKit/UIKit.h>
+  #import <Foundation/Foundation.h>
+#endif

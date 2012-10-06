@@ -1,0 +1,20 @@
+/* precompiled headers source file
+ * ===============================
+ *
+ */
+
+// C-version for SyncML toolkit files
+#pragma cplusplus off
+
+// determine target file name
+#pragma precompile_target "combiengine_opensource_linux.mch"
+
+// include all headers that are suitable for precompiled
+// C version use
+// - target options can incfluence everything
+#include "target_options.h"
+
+// standard SyncML TK stuff
+#include "smltk_precomp.h"
+
+// eof

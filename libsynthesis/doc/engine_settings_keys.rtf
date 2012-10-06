@@ -1,0 +1,142 @@
+{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf430
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\froman\fcharset0 TimesNewRomanPSMT;}
+{\colortbl;\red255\green255\blue255;}
+{\info
+{\author Lukas Zeller}
+{\*\company Sherwood Forest}}\paperw11905\paperh16837\margl1417\margr1417\margb1134\margt1417\vieww19240\viewh20720\viewkind0
+\deftab720
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\f0\b\fs20 \cf0 /engineinfo	general info about engine (read-only)\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b0 \cf0   version	- SySync full version string\
+  platform	- name of the platform\
+\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b \cf0 /configvars	configuration variables (volatile)\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b0 \cf0   platformname	- name of the current platform\
+  platformvers	- version string of the current platform\
+  globcfg_path	- global system-wide config path (such as C:\\Windows or /etc)\
+  loccfg_path	- local config path (such as exedir or user's dir)\
+  defout_path	- default path to writable directory to write logs and other output by default\
+  temp_path	- path where we can write temp files\
+  exedir_path	- path to directory where executable resides\
+  userdir_path	- path to the user's home directory for user-visible documents and files\
+  appdata_path	- path to the user's preference directory for this application\
+  prefs_path	- path to directory where all application prefs reside (not just mine)\
+  device_uri	- URI of the device (as from getDeviceInfo)\
+  device_name	- Name of the device (as from getDeviceInfo)\
+  user_name	- name of the currently logged-in user\
+  conferrpath	-for Synthesis SyncML engine library only: path of the file to output configuration parsing error messages. Can be set to "console" to di-rect the error messages to the standard output (note that a usable standard output might not exist for certain platforms).\
+\pard\tx2414\tx2414\pardeftab720\li2556\fi-2556\ri0
+\cf0   xxxx	- user-defined variables (can also set to override default value of one of the above)\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+\cf0 \
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b \cf0 /licensing	license (volatile, text/code must be set every time app ist started)\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b0 \cf0   licensetext	- license text\
+  licensecode	- Writeonly: license code (setting it will recalculate all the following status variables)\
+  regStatus	- Readonly: TSyError status code of currently set license\
+  regOK	- Readonly: if true, license is ok\
+  productCode	- Readonly: product code from license\
+  productFlags	- Readonly: product flags from license\
+  quantity	- Readonly: licensed quantity\
+  licenseType	- Readonly: license type\
+  daysleft	- Readonly: number of days left of expiring license or demo mode (-1 = not expiring)\
+\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b \cf0 /profiles	Client settings profiles (persistent)\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b0 \cf0   settingsstatus	- TSyError status of the settings. MUST BE CALLED AT LEAST ONCE before opening subkeys\
+  overwrite	- (volatile) boolean flag. In case opening settings would cause deleting incompatible settings, this is done only if overwrite is set to true.\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b \cf0   /<profileID>	Profile ID (as assigned by engine when profile is created)\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b0 \cf0     profileName	- display name of the profile\
+    protocol	- transport protocol: 0=included in URI, 1=http, 2=https, 3=wsp, 4=obex_irda, 5=obex_bt, 6=obex_tcp\
+    serverURI	- SyncML Server URI\
+    URIpath	- Path element appended to SyncML Server URI (e.g. in case URI is hardcoded)\
+    serverUser	- SyncML Server user\
+    serverPassword	- SyncML Server password (stored in disguised form)\
+    transportUser	- user for login at the transport level (e.g. HTTP auth)\
+    transportPassword	- password for transport level login (stored in disguised form)\
+    socksHost	- SOCKS proxy address\
+    proxyHost	- HTTP proxy address\
+    proxyUser	- user for login at the proxy\
+    proxyPassword	- password for proxy login (stored in disguised form)\
+    encoding	- SyncML encoding (1=WBXML, 2=XML - note that not some client builds only support WBXML)\
+    syncmlvers	- SyncML version to use to start session (0=automatic, 1=1.0, 2=1.1, 3=1.2)\
+    useProxy	- If set to true, this indicates that configured proxy server(s) should be used\
+    useConnectionProxy	- if set to true, this indicates that OS-defined, connection specific proxies should be used\
+    timedSyncMobile	- Number of minutes for mobile timed autosync (0=none)\
+    timedSyncCradled	- Number of minutes for cradled timed autosync (0=none)\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b \cf0 \
+    /autosynclevels\
+      /<id>	Autosync level ID, 0..2, 0=first priority, 2=least priority\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b0 \cf0       mode	- Autosync mode for this level (0=IPP, 1=timed, 2=off, 3=server alerted)\
+      startDayTime	- minute of the day when autosync starts in this level\
+      endDayTime	- minute of the day when autosync ends in this level\
+      weekdayMask	- weekdays where autosync is enabled in this level (Bit 0=Sun, 1=Mon .. 6=Sat\
+      chargeLevel	- percentage of battery charge needed to enable autosync (0..100, 100=with AC supply only)\
+      memLevel	- percentage of memory free needed to enable autosync (0..100)\
+      flags	- flags reserved for future use\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b \cf0 \
+    /targets	Targets (databases available for sync in this profile)\
+      <targetID>	Target ID is the <dbtypeid> as defined in the <datastore> config\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b0 \cf0       enabled	- if set to true, this datastore will be included in next sync\
+      forceslow	- if set to true, next sync will be a slow sync\
+      syncmode	- sync mode: 0=twoway, 1=from server only, 2=from client only\
+      limit1	- sync range limit (such as number of days in the past, depends on datastore)\
+      limit2	- sync range limit (such as number of days in the future, depends on datastore)\
+      extras	- flags for sync range limist (depends on datastore)\
+      localpath	- local database path (if any), to differentiate multiple instances of the same database type\
+      remotepath	- remote (server) database path\
+      localcontainer	- local container name, if any (usage depends on datastore implementation)\
+      dbname	- Readonly: name of the related <datastore> (in the XML config)\
+      lastSync	- Readonly: time of last successful sync\
+      lastToRemoteSync	- Readonly: time of last sync that sent data to the remote party (server)\
+      resumeAlertCode	- Read: if != 0, next sync will be a resume. Write: set to 0 to prevent resume. DO NOT WRITE OTHER VALUES THAN 0.\
+\pard\tx2414\tx2414\pardeftab720\li2556\fi-2556\ri0
+\cf0       dispName	- Readonly: the datastore's display name as configured with <displayname> (if none configured, this returns same as "dbname")\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b \cf0 \
+  Session key	unnamed implicit per-session key obtained by OpenSessionKey()\
+\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b0 \cf0     connectURI	- URI to use to connect to SyncML server. Note that this might be different from the original Server URI in profile's "serverURI" as the SyncML server might request sending requests to another URI during a sync session.\
+    contenttype	- content type string to use for the HTTP "Content-Type:" header.\
+\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b \cf0     /sessionvars	Session context script variables (for PRO engines with scripting only)\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\b0 \cf0       <varname>	- name of any script variable defined in session context scripts (like <sessioninitscript>).\
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\f1\fs24 \cf0 \
+\pard\tx2414\pardeftab720\li2556\fi-2556\ri0
+
+\f0\fs20 \cf0 \
+}

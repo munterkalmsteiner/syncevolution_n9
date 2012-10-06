@@ -35,9 +35,6 @@ Makefile.in
 /syncevolution.1
 /syncevolution-*.tar.gz
 
-# for Maemo build
-/libsynthesis
-
 # po
 /po/*.gmo
 /po/.intltool-merge-cache

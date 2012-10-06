@@ -1,0 +1,52 @@
+The coding style varies a bit with author and age of the code. When
+changing existing code emulate its style. If you disagree with a
+certain style, format code the way you are more comfortable with.
+These are all merely guidelines - use common sense.
+
+Here are some general guidelines for new code:
+ * Similar to GNU formatting.
+ * Indention is two spaces, no tabs.
+ * Avoid curly brackets after if/while/do for single statements  
+   (as in the Linux kernel) but only if the statement needs
+   no comment lines.
+ * One space right and left of assignment operators,
+   none around normal operators (such as in "a = b+c;").
+   Other formatting is also common. Use extra spaces if it helps
+   readability in complex expressions.
+ * Usually all capital with underscores for global constants.
+   Sometimes also with lower case.
+ * Mixed case with first upper case character for methods
+   and functions. Inside the engine lower case beginning is more
+   common.
+ * Lower case for variables, if necessary upper case characters
+   in the middle to separate words.
+ * Prefix and suffix characters for entity names are used:
+   prefix a: function and method argument, may also be
+             replaced with other letters to denote special
+             context (e.g., m = module, s = session)
+   prefix c: constant
+   prefix f: class or struct data member ("field")
+   prefix T: structured type or enum
+   suffix P[P]: pointer [to pointer]
+   suffix H: opaque handle
+
+The following .emacs snippet can be used to configure Emacs accordingly
+when editing files in a "/synthesis/" directory:
+
+(add-hook 'c-mode-hook
+          (lambda ()
+            (let ((filename (buffer-file-name)))
+              (when (and filename
+                         (string-match "/synthesis/" filename))
+                (setq c-basic-offset 2)
+                )
+              )))
+
+(add-hook 'c++-mode-hook
+          (lambda ()
+            (let ((filename (buffer-file-name)))
+              (when (and filename
+                         (string-match "/synthesis/" filename))
+                (setq c-basic-offset 2)
+                )
+              )))

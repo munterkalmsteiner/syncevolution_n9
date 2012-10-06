@@ -1,0 +1,3 @@
+Lukas Zeller <luz@plan44.ch>: core engine
+Beat Forster <bfo@synthesis.ch>: SDK, database adapters, time zone handling
+Patrick Ohly <patrick.ohly@intel.com>: autotools compilation

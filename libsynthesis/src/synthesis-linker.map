@@ -1,0 +1,13 @@
+VER_1.0 {
+    global:
+        SySync_*ConnectEngine;
+        SySync_*ConnectEngineS;
+        SySync_*DisconnectEngine;
+        SySync_*ConsolePrintf;
+        extern "C++" {
+               sysync::DataConversion*;
+               sysync::SySyncDebugPuts*;
+        };
+    local:
+        *;
+};

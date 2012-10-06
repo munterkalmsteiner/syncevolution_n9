@@ -1,0 +1,35 @@
+Build dependencies
+------------------
+pcre
+sqlite3
+xmltok or expat (optional, bundled source is used automatically if not installed)
+zlib
+
+Ubuntu 8.04: libpcre3-dev libsqlite3-dev libexpat-dev libz-dev
+
+Contributions
+-------------
+You are free to modify and distribute under the licenses indicated in
+COPYING. As many other companies which dual-license their code, Synthesis
+must be able to use all code in the upstream repository for their
+commercial offerings. Therefore please sign the
+   Synthesis_AG_Contributor_Agreement.pdf
+and send it to Synthesis before submitting patches and code to Synthesis
+for inclusion.
+
+By doing so you simplify your own usage of the code (no need to merge
+your changes with new upstream releases again and again) and ensure
+that Synthesis will continue to release updates under an open source
+license (we need to finance the development with sales from our commercial
+products for commercial platforms and applications).
+
+Synthesis is a small, entirely self-funded venture and the code that is
+now becoming opensource is the work of 8 years focus on SyncML. So we count
+on contributors to understand that in our own interest as well as the interest
+of the project's future we need to be able to continue our commercial products
+without complicating the process of developing them.
+With the contributor agreement we can avoid the need for forking our internal
+work into an open source branch and an internal branch, which would severely
+reduce the possible output on the opensource branch. The contributor agreement
+ensures we'll be able to share our internal progress in the project without
+delay with the open source community.

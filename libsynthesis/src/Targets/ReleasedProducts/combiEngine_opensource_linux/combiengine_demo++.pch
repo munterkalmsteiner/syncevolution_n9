@@ -1,0 +1,21 @@
+/* precompiled headers source file
+ * ===============================
+ *
+ */
+
+// SySync is a C++ project, make sure precomp headers
+// are compiled as C++!
+#pragma cplusplus on
+
+// determine target file name
+#pragma precompile_target	"combiengine_opensource_linux++.mch"
+
+
+// include all headers that are suitable for precompiled use
+
+// - target options can incfluence everything
+#include "target_options.h"
+// - precompilable headers
+#include "combiengine_custom_precomp.h"
+
+// eof

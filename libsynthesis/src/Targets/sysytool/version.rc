@@ -1,0 +1,46 @@
+///////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+#include <winver.h>
+#include "target_options.h"
+
+
+1 VERSIONINFO
+ FILEVERSION SYSYNC_VERSION_MAJOR,SYSYNC_VERSION_MINOR,SYSYNC_SUBVERSION,SYSYNC_BUILDNUMBER
+ PRODUCTVERSION SYSYNC_VERSION_MAJOR,SYSYNC_VERSION_MINOR,SYSYNC_SUBVERSION,SYSYNC_BUILDNUMBER
+ FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+#if SYDEBUG>1
+ FILEFLAGS VS_FF_DEBUG
+#else
+ FILEFLAGS 0x0L
+#endif
+
+ FILEOS VOS__WINDOWS32
+
+ FILETYPE VFT_DLL
+
+ FILESUBTYPE VFT2_UNKNOWN
+
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments", VERSION_COMMENTS "\0"
+            VALUE "CompanyName", "Synthesis AG - www.synthesis.ch\0"
+            VALUE "FileDescription", "Synthesis SyncML Diagnostic Tool\0"
+            VALUE "FileVersion", SYSYNC_VERSION_STRING "\0"
+            VALUE "InternalName", "sysytool\0"
+            VALUE "LegalCopyright", "Copyright (C) 2004-" RELEASE_YEAR_TXT " by Synthesis AG\0"
+            VALUE "OriginalFilename", "sysytool.exe\0"
+            VALUE "ProductName", "Synthesis SyncML Diagnostic Tool\0"
+            VALUE "ProductVersion", SYSYNC_VERSION_STRING "\0"
+       END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

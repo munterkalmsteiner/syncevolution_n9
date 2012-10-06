@@ -1,0 +1,2 @@
+// platform has no new C++ type header for this include file
+#include <ctype.h>
